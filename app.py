@@ -1,4 +1,6 @@
 # Dependencies:
+import os
+from random import randint
 
 # Data manipulation
 import pandas as pd
@@ -8,6 +10,7 @@ import plotly.express as px
 import plotly.graph_objects as go
 
 # Dashboarding:
+import flask
 import dash
 import dash_table as dt
 import dash_html_components as html
@@ -46,8 +49,9 @@ All data was extracted from the following publication and belongs to the origina
 > [Lodin, Karin et al. “Longitudinal co-variations between inflammatory cytokines, lung function and patient reported outcomes in patients with asthma.” PloS one vol. 12,9 e0185019. 15 Sep. 2017, doi:10.1371/journal.pone.0185019][1]
 [1]:https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5600400/'''
 
-app = dash.Dash(__name__)
-server = app.server
+server = flask.Flask(__name__)
+server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
+app = dash.Dash(__name__, server=server)
 
 app.layout = html.Div(children=[html.Div(className='Intro',
                                         children=[html.H1(children='Asthma Phenotyping Project - Interactive Dashboard',style={'text-align':'center'}),
@@ -125,5 +129,6 @@ def display_selected_data(selectedData):
         'layout':tempFig.layout
         },tableFill]
 
-app.run_server()
+if __name__ == '__main__':
+    app.server.run(debug=True, threaded=True)
     
