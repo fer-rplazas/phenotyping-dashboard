@@ -49,9 +49,11 @@ All data was extracted from the following publication and belongs to the origina
 > [Lodin, Karin et al. “Longitudinal co-variations between inflammatory cytokines, lung function and patient reported outcomes in patients with asthma.” PloS one vol. 12,9 e0185019. 15 Sep. 2017, doi:10.1371/journal.pone.0185019][1]
 [1]:https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5600400/'''
 
+external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
+
 server = flask.Flask(__name__)
 server.secret_key = os.environ.get('secret_key', str(randint(0, 1000000)))
-app = dash.Dash(__name__, server=server)
+app = dash.Dash(__name__, server=server,external_stylesheets=external_stylesheets)
 
 app.layout = html.Div(children=[html.Div(className='Intro',
                                         children=[html.H1(children='Asthma Phenotyping Project - Interactive Dashboard',style={'text-align':'center'}),
