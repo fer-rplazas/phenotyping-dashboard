@@ -38,7 +38,8 @@ fig1.add_trace(go.Scatterpolar(
 ))
 
 fig2 = px.scatter(x=df2['Latent Factor 1'], y=df2['Latent Factor 2'],
-                hover_name=df2.index)
+            hover_name=df2.index)
+fig2.update_layout(dragmode='lasso')
 
 description = '''The visualizations displayed here are the result of an embedding model. Each point corresponds to a patient in the embedding space. 
 
